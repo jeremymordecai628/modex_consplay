@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Orders & Products</title>
+    <style>
+        form, table {
+            margin: 20px auto;
+            width: 80%;
+        }
+        input, select {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #999;
+            text-align: left;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Submit New product</h2>
+    <form method="POST" action="/add_product" enctype="multipart/form-data">
+        <label for="product_id">Product ID:</label>
+        <input type="number" name="product_id" required>
+
+        <label for="product name">Product name:</label>
+        <input type="number" name="product name" required>
+
+        <label for="price">price:</label>
+	<input type="number" name="price" required>
+	
+        <label for="image">Upload Product Image:</label>
+        <input type="file" name="image" accept="image/*" required>
+
+        <input type="submit" value="Submit Order">
+    </form>
+
+    <h2>Order List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer ID</th>
+                <th>Product Name</th>
+                <th>Status</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.order_id }}</td>
+                <td>{{ order.customer_id }}</td>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Product List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Price (KSh)</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product_id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+		<td> {{product.filename}}</td>   
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
+

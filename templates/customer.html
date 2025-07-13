@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header, section, footer {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        header {
+            background: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            width: 120px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #999;
+        }
+
+        section form {
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form input, form select {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"] {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top: Dynamic Images -->
+    <header>
+        <h2>Product Gallery</h2>
+        {% for order in orders %}
+            {% if order.image_filename %}
+                <img src="{{ url_for('static', filename='images/' ~ order.image_filename) }}" alt="Product Image">
+            {% endif %}
+        {% endfor %}
+    </header>
+
+    <!-- Middle: Order Form -->
+    <section>
+        <h2>Place an Order</h2>
+        <form method="POST" action="/add_order" enctype="multipart/form-data">
+            <label for="customer_id">Customer ID:</label>
+            <input type="number" name="customer_id" required>
+
+            <label for="product_id">Product ID:</label>
+            <input type="number" name="product_id" required>
+
+            <label for="status">Status:</label>
+            <select name="status" required>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <label for="image">Upload Image (optional):</label>
+            <input type="file" name="image" accept="image/*">
+
+            <input type="submit" value="Submit Order">
+        </form>
+    </section>
+
+    <!-- Bottom: Contact Information -->
+    <footer>
+        <p><strong>Contact Us</strong></p>
+        <p>Ressen Gardens Ltd</p>
+        <p>Phone: +254 712 345678</p>
+        <p>Email: info@ressengardens.co.ke</p>
+        <p>Location: Nairobi, Kenya</p>
+    </footer>
+
+</body>
+</html>
+

@@ -124,6 +124,7 @@ def signin():
         session['user_id'] = user.id
         return redirect('/dashboard')
     return "Invalid login"
+@login required 
 @app.route('/add_order', methods=['POST'])
 def add_order():
     user_id = session.get('user_id')
@@ -143,11 +144,12 @@ def add_order():
     db.session.add(new_order)
     db.session.commit()
     return redirect('/dashboard')
-
+@login required 
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect('/auth')
+    return redirect('/')
+
 
 if __name__ == '__main__':
     with app.app_context():
